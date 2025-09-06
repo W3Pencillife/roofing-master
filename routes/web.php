@@ -59,11 +59,19 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
     
+    // Route::get('/general', function () {
+    //     return view('admin.general');
+    // })->name('admin.general');
+
     Route::get('/general', function () {
-        return view('admin.general');
-    })->name('admin.general');
+    $setting = \App\Models\Setting::latest()->first();
+    return view('admin.general', compact('setting'));
+})->name('admin.general');
+
 
     Route::post('/general/about/update', [HomeAboutController::class, 'update'])->name('admin.general.about.update');
+    Route::post('/general/hero/update', [SettingController::class, 'updateHero'])->name('admin.general.hero.update');
+
 
     
     Route::prefix('admin/posts')->name('admin.posts.')->group(function () {
