@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\AdminResetPasswordController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\HomeAboutController;
+use App\Http\Controllers\Admin\HomeDiscoverController;
 
 
 
@@ -71,9 +72,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::post('/general/about/update', [HomeAboutController::class, 'update'])->name('admin.general.about.update');
     Route::post('/general/hero/update', [SettingController::class, 'updateHero'])->name('admin.general.hero.update');
+    Route::post('/general/discover/update', [HomeDiscoverController::class, 'update'])->name('admin.general.discover.update');
 
-
-    
     Route::prefix('admin/posts')->name('admin.posts.')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/create', [PostController::class, 'create'])->name('create');

@@ -28,43 +28,42 @@
                     <div class="tab-content mt-4" id="settingsTabContent">
                         <!-- Hero Section Settings -->
                         <div class="tab-pane fade show active" id="hero" role="tabpanel">
-<form action="{{ route('admin.general.hero.update') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="heroTitle" class="form-label">Hero Title</label>
-                <input type="text" class="form-control" name="hero_title" id="heroTitle"
-                    value="{{ $setting->hero_title ?? 'Professional Roofing Services' }}">
-            </div>
-            <div class="form-group mt-3">
-                <label for="heroText" class="form-label">Hero Text</label>
-                <textarea class="form-control" name="hero_text" id="heroText" rows="3">{{ $setting->hero_text ?? 'Expert roofing solutions for residential and commercial properties' }}</textarea>
-            </div>
-            <div class="form-group mt-3">
-                <label for="heroButtonText" class="form-label">Button Text</label>
-                <input type="text" class="form-control" name="hero_button_text" id="heroButtonText"
-                    value="{{ $setting->hero_button_text ?? 'Free Quote' }}">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="heroBg" class="form-label">Hero Background Image</label>
-                <input type="file" class="form-control" name="hero_bg">
-                <div class="mt-3">
-                    <p class="small">Current Image:</p>
-                    @if(!empty($setting->hero_bg))
-                        <img src="{{ asset('storage/'.$setting->hero_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
-                    @else
-                        <img src="https://images.unsplash.com/photo-1542293787938-c9e299b880cc" style="height:150px;border-radius:8px;object-fit:cover;">
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary mt-4">Save Hero Section</button>
-</form>
-
+                            <form action="{{ route('admin.general.hero.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="heroTitle" class="form-label">Hero Title</label>
+                                            <input type="text" class="form-control" name="hero_title" id="heroTitle"
+                                                value="{{ $setting->hero_title ?? 'Professional Roofing Services' }}">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="heroText" class="form-label">Hero Text</label>
+                                            <textarea class="form-control" name="hero_text" id="heroText" rows="3">{{ $setting->hero_text ?? 'Expert roofing solutions for residential and commercial properties' }}</textarea>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="heroButtonText" class="form-label">Button Text</label>
+                                            <input type="text" class="form-control" name="hero_button_text" id="heroButtonText"
+                                                value="{{ $setting->hero_button_text ?? 'Free Quote' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="heroBg" class="form-label">Hero Background Image</label>
+                                            <input type="file" class="form-control" name="hero_bg">
+                                            <div class="mt-3">
+                                                <p class="small">Current Image:</p>
+                                                @if(!empty($setting->hero_bg))
+                                                    <img src="{{ asset('storage/'.$setting->hero_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
+                                                @else
+                                                    <img src="https://images.unsplash.com/photo-1542293787938-c9e299b880cc" style="height:150px;border-radius:8px;object-fit:cover;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-4">Save Hero Section</button>
+                            </form>
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="card">
@@ -170,39 +169,48 @@
                             @php
                                 $homeDiscover = \App\Models\HomeDiscover::first();
                             @endphp
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="discoverTitle" class="form-label">Discover Title</label>
-                                        <input type="text" class="form-control" id="discoverTitle" value="{{ $homeDiscover->title ?? 'Discover Our Services' }}">
+                            <form action="{{ route('admin.general.discover.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="discoverTitle" class="form-label">Discover Title</label>
+                                            <input type="text" class="form-control" name="title" id="discoverTitle"
+                                                value="{{ $homeDiscover->title ?? 'Discover Our Services' }}">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="discoverDescription" class="form-label">Discover Description</label>
+                                            <textarea class="form-control" name="description" id="discoverDescription" rows="4">{{ $homeDiscover->description ?? 'Explore our wide range of roofing services designed to meet your specific needs and requirements.' }}</textarea>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="discoverButtonText" class="form-label">Button Text</label>
+                                            <input type="text" class="form-control" name="button_text" id="discoverButtonText"
+                                                value="{{ $homeDiscover->button_text ?? 'Learn More' }}">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="discoverButtonLink" class="form-label">Button Link</label>
+                                            <input type="text" class="form-control" name="button_link" id="discoverButtonLink"
+                                                value="{{ $homeDiscover->button_link ?? '/services' }}">
+                                        </div>
                                     </div>
-                                    <div class="form-group mt-3">
-                                        <label for="discoverDescription" class="form-label">Discover Description</label>
-                                        <textarea class="form-control" id="discoverDescription" rows="4">{{ $homeDiscover->description ?? 'Explore our wide range of roofing services designed to meet your specific needs and requirements.' }}</textarea>
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label for="discoverButtonText" class="form-label">Button Text</label>
-                                        <input type="text" class="form-control" id="discoverButtonText" value="{{ $homeDiscover->button_text ?? 'Learn More' }}">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label for="discoverButtonLink" class="form-label">Button Link</label>
-                                        <input type="text" class="form-control" id="discoverButtonLink" value="{{ $homeDiscover->button_link ?? '/services' }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="discoverBg" class="form-label">Discover Background Image</label>
-                                        <div class="image-upload-container" id="discoverImageUpload">
-                                            <div class="upload-placeholder">
-                                                <i class="ni ni-image"></i>
-                                                <p>Click to upload or drag and drop</p>
-                                                <p class="small text-muted">SVG, PNG, JPG (max. 5MB)</p>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="discoverBg" class="form-label">Discover Background Image</label>
+                                            <input type="file" class="form-control" name="discover_bg">
+                                            <div class="mt-3">
+                                                <p class="small">Current Image:</p>
+                                                @if(!empty($homeDiscover->discover_bg))
+                                                    <img src="{{ asset('storage/'.$homeDiscover->discover_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
+                                                @else
+                                                    <img src="https://images.unsplash.com/photo-1620595376565-5a61abf5726d" style="height:150px;border-radius:8px;object-fit:cover;">
+                                                @endif
                                             </div>
-                                            <input type="file" class="d-none" accept="image/*">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary mt-4">Save Discover Section</button>
+                            </form>
+
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="card">

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HomeDiscover extends Model
 {
-    protected $fillable = ['title', 'description', 'button_text', 'button_link'];
+    protected $fillable = ['title', 'description', 'button_text', 'button_link', 'discover_bg'];
+
 }
 
