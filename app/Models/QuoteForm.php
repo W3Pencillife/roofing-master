@@ -9,8 +9,9 @@ class QuoteForm extends Model
 {
     use HasFactory;
 
-    protected $table = 'quote_forms'; // ensure table name is correct
+    protected $table = 'quote_forms';
     protected $fillable = [
         'title', 'subtitle', 'benefit_1', 'benefit_2', 'benefit_3'
     ];
 }
+
