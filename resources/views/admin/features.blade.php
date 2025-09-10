@@ -12,14 +12,15 @@
                     <h6 class="m-0 font-weight-bold text-primary">Section Header Management</h6>
                 </div>
                 <div class="card-body">
-                    <form id="headerForm">
+                    <form action="{{ route('admin.features.header.update') }}" method="POST">
+                        @csrf
                         <div class="form-group">
                             <label for="sectionTitle">Section Title</label>
-                            <input type="text" class="form-control" id="sectionTitle" name="sectionTitle" value="Why Choose Expert Construction Pvt Limited for Your Next Project?">
+                            <input type="text" class="form-control" id="sectionTitle" name="sectionTitle" value="">
                         </div>
                         <div class="form-group">
                             <label for="highlightText">Highlighted Text</label>
-                            <input type="text" class="form-control" id="highlightText" name="highlightText" value="Expert Construction Pvt Limited">
+                            <input type="text" class="form-control" id="highlightText" name="highlightText" value="">
                         </div>
                         <button type="submit" class="btn btn-primary">Update Header</button>
                     </form>
@@ -52,92 +53,30 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><i class="bi bi-award feature-icon-display"></i></td>
-                            <td>Proven Expertise</td>
-                            <td>With years of hands-on experience in the roofing industry...</td>
-                             <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><i class="bi bi-cash-stack feature-icon-display"></i></td>
-                            <td>Transparent Pricing</td>
-                            <td>Free no-obligation estimate, we are transparent about our costs...</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><i class="bi bi-graph-up feature-icon-display"></i></td>
-                            <td>Competitive Value</td>
-                            <td>We strive to offer competitive prices without compromising...</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><i class="bi bi-shield-check feature-icon-display"></i></td>
-                            <td>Quality Craftsmanship</td>
-                            <td>We take pride in delivering top-notch roof services...</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><i class="bi bi-chat-dots feature-icon-display"></i></td>
-                            <td>Clear Communication</td>
-                            <td>Excellent service with a clean, safe site at all times...</td>
-                           <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><i class="bi bi-building-gear feature-icon-display"></i></td>
-                            <td>Comprehensive Services</td>
-                            <td>Whether it's repairs, new installations, or commercial roofing...</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary action-btn me-1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger action-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+<tbody>
+    @forelse($features as $index => $feature)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td><i class="bi {{ $feature->icon }} feature-icon-display"></i></td>
+            <td>{{ $feature->heading }}</td>
+            <td>{{ $feature->description }}</td>
+            <td>
+                <form action="{{ route('admin.features.destroy', $feature->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-outline-danger action-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="5" class="text-center">No features added yet.</td>
+        </tr>
+    @endforelse
+</tbody>
+
                 </table>
             </div>
         </div>
@@ -153,52 +92,41 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="featureTitle" class="form-label">Feature Title</label>
-                                <input type="text" class="form-control" id="featureTitle" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="featureIcon" class="form-label">Icon</label>
-                                <select class="form-select" id="featureIcon">
-                                    <option value="bi-award">Award (bi-award)</option>
-                                    <option value="bi-cash-stack">Cash Stack (bi-cash-stack)</option>
-                                    <option value="bi-graph-up">Graph Up (bi-graph-up)</option>
-                                    <option value="bi-shield-check">Shield Check (bi-shield-check)</option>
-                                    <option value="bi-chat-dots">Chat Dots (bi-chat-dots)</option>
-                                    <option value="bi-building-gear">Building Gear (bi-building-gear)</option>
-                                    <option value="bi-tools">Tools (bi-tools)</option>
-                                    <option value="bi-clock-history">Clock History (bi-clock-history)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="featureDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="featureDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="featureOrder" class="form-label">Display Order</label>
-                                <input type="number" class="form-control" id="featureOrder" min="1" value="1">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="featureStatus" checked>
-                                    <label class="form-check-label" for="featureStatus">Active</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+<form action="{{ route('admin.features.store') }}" method="POST">
+    @csrf
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="featureTitle" class="form-label">Feature Title</label>
+                <input type="text" class="form-control" name="featureTitle" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="featureIcon" class="form-label">Icon</label>
+                <select class="form-select" name="featureIcon" required>
+                    <option value="bi-award">Award (bi-award)</option>
+                    <option value="bi-cash-stack">Cash Stack (bi-cash-stack)</option>
+                    <option value="bi-graph-up">Graph Up (bi-graph-up)</option>
+                    <option value="bi-shield-check">Shield Check (bi-shield-check)</option>
+                    <option value="bi-chat-dots">Chat Dots (bi-chat-dots)</option>
+                    <option value="bi-building-gear">Building Gear (bi-building-gear)</option>
+                    <option value="bi-tools">Tools (bi-tools)</option>
+                    <option value="bi-clock-history">Clock History (bi-clock-history)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="featureDescription" class="form-label">Description</label>
+        <textarea class="form-control" name="featureDescription" rows="3" required></textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Feature</button>
+    </div>
+</form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

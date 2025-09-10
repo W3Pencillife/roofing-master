@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\HomeAboutController;
 use App\Http\Controllers\Admin\HomeDiscoverController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\AdminPartnerController;
+use App\Http\Controllers\Admin\FeatureController;
+
 
 
 // Public routes
@@ -89,9 +91,11 @@ Route::prefix('admin')->group(function () {
             Route::get('/commercial', [ProjectController::class, 'commercial'])->name('commercial');
         });
 
-        Route::get('/features', function () {
-            return view('admin.features');
-        })->name('admin.features');
+        Route::get('/features', [FeatureController::class, 'index'])->name('admin.features');
+        Route::post('/features/header', [FeatureController::class, 'updateHeader'])->name('admin.features.header.update');
+        Route::post('/features', [FeatureController::class, 'store'])->name('admin.features.store');
+        Route::delete('/features/{id}', [FeatureController::class, 'destroy'])->name('admin.features.destroy');
+
 
         Route::get('/partners', [AdminPartnerController::class, 'index'])->name('admin.partners');
         Route::post('/partners', [AdminPartnerController::class, 'store'])->name('admin.partners.store');
