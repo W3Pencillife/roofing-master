@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\HomeAboutController;
 use App\Http\Controllers\Admin\HomeDiscoverController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\AdminPartnerController;
+
 
 // Public routes
 Route::get('/', function () {
@@ -25,7 +27,14 @@ Route::post('/send-quote', [QuoteFormController::class, 'send'])->name('quote.se
 Route::get('/partners', [PartnerController::class, 'index']);
 
 // Services by category
-Route::get('/services/{slug}', [PostController::class, 'showByCategory'])->name('services.category');
+//Route::get('/services/{slug}', [PostController::class, 'showByCategory'])->name('services.category');
+Route::get('/services/{slug}', [PostController::class, 'showBySlug'])->name('services.category');
+
+Route::get('/test-services', function() {
+    $roofingServices = \App\Models\Post::where('category', 'Roofing Services')->get();
+    $commercialServices = \App\Models\Post::where('category', 'Commercial Services')->get();
+    dd($roofingServices, $commercialServices);
+});
 
 // Admin Authentication
 Route::prefix('admin')->group(function () {
@@ -84,9 +93,10 @@ Route::prefix('admin')->group(function () {
             return view('admin.features');
         })->name('admin.features');
 
-        Route::get('/partners', function () {
-            return view('admin.partners');
-        })->name('admin.partners');
+        Route::get('/partners', [AdminPartnerController::class, 'index'])->name('admin.partners');
+        Route::post('/partners', [AdminPartnerController::class, 'store'])->name('admin.partners.store');
+        Route::delete('/partners/{id}', [AdminPartnerController::class, 'destroy'])->name('admin.partners.destroy');
+        
 
         Route::get('/site-settings', function () {
             return view('admin.site-settings');

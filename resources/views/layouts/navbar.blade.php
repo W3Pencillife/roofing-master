@@ -23,68 +23,57 @@
           <a class="nav-link fw-semibold text-white" href="#">About Us</a>
         </li>
 
-        <!-- Services Dropdown -->
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle fw-semibold text-white position-relative" href="#" data-bs-toggle="dropdown" id="servicesDropdown">
-            Services
-            <span class="position-absolute bottom-0 start-0 w-100 bg-info"
-                  style="height: 2px; transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;"></span>
-          </a>
+<!-- Services Dropdown -->
+<li class="nav-item dropdown mx-2">
+    <a class="nav-link dropdown-toggle fw-semibold text-white position-relative" href="#" data-bs-toggle="dropdown" id="servicesDropdown">
+        Services
+        <span class="position-absolute bottom-0 start-0 w-100 bg-info"
+              style="height: 2px; transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;"></span>
+    </a>
 
-          <ul class="dropdown-menu dropdown-menu-end p-0"
-              style="min-width: 280px; background-color: white; border: none; border-radius: 8px; 
-                     box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
+    <ul class="dropdown-menu dropdown-menu-end p-0"
+        style="min-width: 280px; background-color: white; border: none; border-radius: 8px; 
+               box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
 
-            <!-- Roofing Services -->
-            <li class="px-3 pt-3">
-              <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
-                  style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
+        <!-- Roofing Services -->
+        <li class="px-3 pt-3">
+            <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
+                style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
                 Roofing Services
-              </h6>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> Long Run Roofing
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> Re-Roofing
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> Roof Replacement
-              </a>
-            </li>
-
-            <!-- Divider -->
-            <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
-
-            <!-- Commercial Services -->
-            <li class="px-3 pt-3">
-              <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
-                  style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
-                Commercial Services
-              </h6>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> Commercial & Industrial Roofing
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> Commercial Skylight Replacements
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center" href="#">
-                <i class="" style="color: #3498db;"></i> New Roof
-              </a>
-            </li>
-          </ul>
+            </h6>
         </li>
+        @forelse($roofingServices as $service)
+            <li>
+                <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                   href="{{ route('services.category', $service->slug) }}">
+                    {{ $service->title }}
+                </a>
+            </li>
+        @empty
+            <li class="px-3 py-2 text-muted">No Roofing Services Found</li>
+        @endforelse
+
+        <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
+
+        <!-- Commercial Services -->
+        <li class="px-3 pt-3">
+            <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
+                style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
+                Commercial Services
+            </h6>
+        </li>
+        @forelse($commercialServices as $service)
+            <li>
+                <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                   href="{{ route('services.category', $service->slug) }}">
+                    {{ $service->title }}
+                </a>
+            </li>
+        @empty
+            <li class="px-3 py-2 text-muted">No Commercial Services Found</li>
+        @endforelse
+    </ul>
+</li>
 
         <li class="nav-item mx-2">
           <a class="nav-link fw-semibold text-white" href="#">Products</a>

@@ -9,12 +9,7 @@ class PostController extends Controller
 {
     public function showBySlug($slug)
     {
-        // Find posts by slug
-        $posts = Post::where('slug', $slug)->get();
-
-        // Get the category name for display
-        $category = $posts->first()?->category ?? 'Unknown Category';
-
-        return view('layouts.services-page', compact('posts', 'category'));
+        $post = Post::where('slug', $slug)->firstOrFail(); // fetch single post by slug
+        return view('layouts.services-page', compact('post'));
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\CommercialProject;
 use App\Models\ResidentialProject;
 use App\Models\SiteSetting;
+use App\Models\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,12 +40,22 @@ class AppServiceProvider extends ServiceProvider
         });
 
             View::composer('layouts.home-about', function ($view) {
-        $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
-    });
-    
-    // Also for home view if needed
-    View::composer('home', function ($view) {
-        $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
-    });
+            $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
+        });
+        
+        // Also for home view if needed
+        View::composer('home', function ($view) {
+            $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
+        });
+
+
+            // Share service posts with all views (for navbar)
+        View::composer('*', function ($view) {
+            $roofingServices = Post::where('category', 'Roofing Services')->get();
+            $commercialServices = Post::where('category', 'Commercial Services')->get();
+
+            $view->with(compact('roofingServices', 'commercialServices'));
+        });
+
     }
 }

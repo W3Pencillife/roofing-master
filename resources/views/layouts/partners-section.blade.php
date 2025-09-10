@@ -5,7 +5,7 @@
       <h2 class="section-title">Our <span style="color: #3498db;">Partners</span></h2>
       <div class="divider"></div>
       <p class="section-description">
-        Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        We work with valued partners to create lasting impact and bring better solutions to our community.
       </p>
     </div>
     
