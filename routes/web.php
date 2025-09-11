@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\CommercialProjectController;
 use \App\Http\Controllers\Admin\ResidentialProjectController;
+use \App\Http\Controllers\Admin\SiteSettingController;
 
 
 
@@ -117,9 +118,10 @@ Route::prefix('admin')->group(function () {
         Route::delete('/partners/{id}', [AdminPartnerController::class, 'destroy'])->name('admin.partners.destroy');
         
 
-        Route::get('/site-settings', function () {
-            return view('admin.site-settings');
-        })->name('admin.site-settings');
+        // Site settings
+        Route::get('/site-settings', [SiteSettingController::class, 'index'])->name('admin.site-settings');
+        Route::post('/site-settings/update', [SiteSettingController::class, 'update'])->name('admin.site-settings.update');
+
 
     });
 });

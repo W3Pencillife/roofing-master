@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\CommercialProject;
 use App\Models\ResidentialProject;
 use App\Models\SiteSetting;
 use App\Models\Post;
+use App\Models\HomeAbout;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,37 +25,40 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-            // Share latest commercial project with all views
+        // Share latest commercial project with all views
         $commercialProject = CommercialProject::latest()->first();
         View::share('commercialProject', $commercialProject);
 
-                // Latest residential project
+        // Share latest residential project with all views
         $residentialProject = ResidentialProject::latest()->first();
         View::share('residentialProject', $residentialProject);
 
-                // Share $siteSetting with all views
+        // Share site settings and service posts (for navbar) with all views
         View::composer('*', function ($view) {
-            $siteSetting = SiteSetting::first(); // fetch the first settings row
-            $view->with('siteSetting', $siteSetting);
-        });
-
-            View::composer('layouts.home-about', function ($view) {
-            $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
-        });
-        
-        // Also for home view if needed
-        View::composer('home', function ($view) {
-            $view->with('homeAbout', \App\Models\HomeAbout::latest()->first());
-        });
-
-
-            // Share service posts with all views (for navbar)
-        View::composer('*', function ($view) {
+            $siteSetting = SiteSetting::first(); // fetch first row
             $roofingServices = Post::where('category', 'Roofing Services')->get();
             $commercialServices = Post::where('category', 'Commercial Services')->get();
 
-            $view->with(compact('roofingServices', 'commercialServices'));
+            $siteLogo = $siteSetting && $siteSetting->logo
+                ? 'images/' . $siteSetting->logo
+                : 'images/default-logo.png'; // fallback if no logo
+
+            $view->with(compact('siteSetting', 'roofingServices', 'commercialServices', 'siteLogo'));
         });
 
+        // Share HomeAbout data specifically for certain views
+        View::composer(['layouts.home-about', 'home'], function ($view) {
+            $homeAbout = HomeAbout::latest()->first();
+            $view->with('homeAbout', $homeAbout);
+        });
+
+        View::composer('*', function ($view) {
+    $allServices = Post::all();
+
+    $roofingServices = $allServices->filter(fn($s) => str_contains(strtolower($s->category), 'roof'));
+    $commercialServices = $allServices->filter(fn($s) => !str_contains(strtolower($s->category), 'roof'));
+
+    $view->with(compact('roofingServices','commercialServices'));
+});
     }
 }

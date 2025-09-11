@@ -24,8 +24,14 @@ class SettingController extends Controller
         $setting->hero_button_text = $request->hero_button_text;
 
         if ($request->hasFile('hero_bg')) {
-            $path = $request->file('hero_bg')->store('uploads/hero', 'public');
-            $setting->hero_bg = $path;
+            $file = $request->file('hero_bg');
+            $filename = time().'_'.$file->getClientOriginalName();
+
+            // Move the file to public/images
+            $file->move(public_path('images'), $filename);
+
+            // Save path in DB relative to public folder
+            $setting->hero_bg = 'images/'.$filename;
         }
 
         $setting->save();

@@ -12,19 +12,24 @@
       <div class="footer-nav">
         <!-- Services Column -->
         <div class="footer-column">
-          <h3 class="footer-heading">Services</h3>
-          <ul class="footer-links">
-            @php
-                $categories = \App\Models\Post::select('category', 'slug')->distinct()->get();
-            @endphp
+            <h3 class="footer-heading">Services</h3>
+            <ul class="footer-links">
+                @php
+                    $allServices = $roofingServices->merge($commercialServices);
+                @endphp
 
-            @foreach($categories as $cat)
-                <li>
-                    <a href="{{ route('services.category', $cat->slug) }}">{{ $cat->category }}</a>
-                </li>
-            @endforeach
-          </ul>
-        </div>        
+                @forelse($allServices as $service)
+                    <li>
+                        <a href="{{ route('services.category', $service->slug) }}">
+                            {{ $service->title }}
+                        </a>
+                    </li>
+                @empty
+                    <li>No services found</li>
+                @endforelse
+            </ul>
+        </div>
+     
         <!-- Support Column -->
         <div class="footer-column">
           <h3 class="footer-heading">Support</h3>

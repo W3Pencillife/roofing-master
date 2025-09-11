@@ -24,75 +24,53 @@
         </li>
 
         <!-- Services Dropdown -->
-        @php
-            // Get all unique categories and their slugs
-            $categories = \App\Models\Post::select('category','slug')->distinct()->get();
-
-            // Separate categories into roofing vs commercial
-            $roofingCategories = $categories->filter(function($cat){
-                return str_contains(strtolower($cat->category), 'roof');
-            });
-
-            $commercialCategories = $categories->filter(function($cat){
-                return !str_contains(strtolower($cat->category), 'roof');
-            });
-        @endphp
-
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle fw-semibold text-white position-relative" href="#" data-bs-toggle="dropdown" id="servicesDropdown">
-            Services
-            <span class="position-absolute bottom-0 start-0 w-100 bg-info"
-                  style="height: 2px; transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;"></span>
-          </a>
+            <a class="nav-link dropdown-toggle fw-semibold text-white position-relative" href="#" data-bs-toggle="dropdown" id="servicesDropdown">
+                Services
+                <span class="position-absolute bottom-0 start-0 w-100 bg-info"
+                      style="height: 2px; transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end p-0"
+                style="min-width: 280px; background-color: white; border: none; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
 
-          <ul class="dropdown-menu dropdown-menu-end p-0"
-              style="min-width: 280px; background-color: white; border: none; border-radius: 8px; 
-                     box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
-
-            <!-- Roofing Services Header -->
-            <li class="px-3 pt-3">
-              <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
-                  style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
-                Roofing Services
-              </h6>
-            </li>
-
-            @foreach($roofingCategories as $index => $cat)
-                <li>
-                    <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
-                       href="{{ route('services.category', $cat->slug) }}">
-                       <i class="" style="color: #3498db;"></i> {{ $cat->category }}
-                    </a>
+                <!-- Roofing Services -->
+                <li class="px-3 pt-3">
+                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Roofing Services</h6>
                 </li>
-                @if($index != $roofingCategories->count() - 1)
-                    <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
-                @endif
-            @endforeach
+                @php
+                    $roofingServices = $roofingServices ?? collect();
+                @endphp
+                @forelse($roofingServices as $service)
+                    <li>
+                        <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                          href="{{ route('services.category', $service->slug) }}">
+                          {{ $service->title }}
+                        </a>
+                    </li>
+                @empty
+                    <li class="dropdown-item text-muted">No Roofing Services Found</li>
+                @endforelse
 
-            <!-- Divider -->
-            <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
+                <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
 
-            <!-- Commercial Services Header -->
-            <li class="px-3 pt-3">
-              <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
-                  style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
-                Commercial Services
-              </h6>
-            </li>
-
-            @foreach($commercialCategories as $index => $cat)
-                <li>
-                    <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
-                       href="{{ route('services.category', $cat->slug) }}">
-                       <i class="" style="color: #3498db;"></i> {{ $cat->category }}
-                    </a>
+                <!-- Commercial Services -->
+                <li class="px-3 pt-3">
+                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Commercial Services</h6>
                 </li>
-                @if($index != $commercialCategories->count() - 1)
-                    <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
-                @endif
-            @endforeach
-
-          </ul>
+                @php
+                    $commercialServices = $commercialServices ?? collect();
+                @endphp
+                @forelse($commercialServices as $service)
+                    <li>
+                        <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                          href="{{ route('services.category', $service->slug) }}">
+                          {{ $service->title }}
+                        </a>
+                    </li>
+                @empty
+                    <li class="dropdown-item text-muted">No Commercial Services Found</li>
+                @endforelse
+            </ul>
         </li>
 
         <li class="nav-item mx-2">
@@ -129,7 +107,6 @@
 </div>
 
 <!-- ==================== Hero Section End ==================== -->
-
 
 
 <!-- ==================== Includes ==================== -->

@@ -51,14 +51,15 @@
                                         <div class="form-group">
                                             <label for="heroBg" class="form-label">Hero Background Image</label>
                                             <input type="file" class="form-control" name="hero_bg">
-                                            <div class="mt-3">
-                                                <p class="small">Current Image:</p>
-                                                @if(!empty($setting->hero_bg))
-                                                    <img src="{{ asset('storage/'.$setting->hero_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
-                                                @else
-                                                    <img src="https://images.unsplash.com/photo-1542293787938-c9e299b880cc" style="height:150px;border-radius:8px;object-fit:cover;">
-                                                @endif
-                                            </div>
+                                        <div class="mt-3">
+                                            <p class="small">Current Image:</p>
+                                            @if(!empty($setting->hero_bg))
+                                                <img src="{{ asset($setting->hero_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
+                                            @else
+                                                <img src="https://images.unsplash.com/photo-1542293787938-c9e299b880cc" style="height:150px;border-radius:8px;object-fit:cover;">
+                                            @endif
+                                        </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +201,7 @@
                                             <div class="mt-3">
                                                 <p class="small">Current Image:</p>
                                                 @if(!empty($homeDiscover->discover_bg))
-                                                    <img src="{{ asset('storage/'.$homeDiscover->discover_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
+                                                    <img src="{{ asset($homeDiscover->discover_bg) }}" style="height:150px;border-radius:8px;object-fit:cover;">
                                                 @else
                                                     <img src="https://images.unsplash.com/photo-1620595376565-5a61abf5726d" style="height:150px;border-radius:8px;object-fit:cover;">
                                                 @endif
