@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\CommercialProjectController;
+use \App\Http\Controllers\Admin\ResidentialProjectController;
 
 
 
@@ -87,7 +88,13 @@ Route::prefix('admin')->group(function () {
 
         // Admin projects
         Route::prefix('projects')->name('admin.projects.')->group(function () {
-            Route::get('/residential', [ProjectController::class, 'residential'])->name('residential');
+            //Route::get('/residential', [ProjectController::class, 'residential'])->name('residential');
+
+            // Residential projects
+        Route::get('/residential', [ResidentialProjectController::class, 'index'])->name('residential');
+        Route::post('/residential/update-content', [ResidentialProjectController::class, 'updateContent'])->name('residential.updateContent');
+        Route::post('/residential/update-image', [ResidentialProjectController::class, 'updateImage'])->name('residential.updateImage');
+
             Route::get('/commercial', [ProjectController::class, 'commercial'])->name('commercial');
         });
         // Commercial Projects
@@ -96,8 +103,6 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/projects/commercial/update', [CommercialProjectController::class, 'update'])
             ->name('admin.projects.commercial.update');
-
-        // New route for updating project images
         Route::post('/projects/commercial/update-image', [CommercialProjectController::class, 'updateImage'])
             ->name('admin.projects.commercial.updateImage');
 
