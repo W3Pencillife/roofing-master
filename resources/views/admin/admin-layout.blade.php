@@ -237,25 +237,26 @@
                     </div>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.projects.index') }}" class="nav-link" id="projects-menu">
-                    <div>
-                        <i class="fas fa-building"></i>
-                        <span>Projects</span>
-                    </div>
-                    <i class="fas fa-chevron-right menu-arrow"></i>
-                </a>
-                <div class="submenu" id="projects-submenu">
-                    <a href="{{ route('admin.projects.residential') }}" class="submenu-link">
-                        <i class="fas fa-home"></i>
-                        Residential Projects
-                    </a>
-                    <a href="{{ route('admin.projects.commercial') }}" class="submenu-link">
-                        <i class="fas fa-city"></i>
-                        Commercial Projects
-                    </a>
-                </div>
-            </li>
+<li>
+    <a href="javascript:void(0);" class="nav-link" id="projects-menu">
+        <div>
+            <i class="fas fa-building"></i>
+            <span>Projects</span>
+        </div>
+        <i class="fas fa-chevron-right menu-arrow"></i>
+    </a>
+    <div class="submenu" id="projects-submenu">
+        <a href="{{ route('admin.projects.residential') }}" class="submenu-link">
+            <i class="fas fa-home"></i>
+            Residential Projects
+        </a>
+        <a href="{{ route('admin.projects.commercial') }}" class="submenu-link">
+            <i class="fas fa-city"></i>
+            Commercial Projects
+        </a>
+    </div>
+</li>
+
             <li>
                 <a href="{{ route('admin.features') }}" class="nav-link">
                     <div>

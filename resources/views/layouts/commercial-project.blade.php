@@ -6,9 +6,11 @@
       <!-- Left Column - Animated Image -->
       <div class="col-lg-6">
         <div class="project-image">
-          <img src="{{ asset($commercialProject?->image ?? 'images/commercial-project.png') }}" 
-               alt="{{ $commercialProject?->title ?? 'Commercial Roofing Project' }}" 
-               class="img-fluid">
+        <img src="{{ $commercialProject?->image ? asset($commercialProject->image) : asset('images/commercial-project.png') }}" 
+            alt="{{ $commercialProject?->title ?? 'Commercial Roofing Project' }}" 
+            class="img-fluid">
+
+
         </div>
       </div>
       
@@ -19,20 +21,21 @@
           <p class="project-description">{{ $commercialProject?->description ?? 'Default commercial description...' }}</p>
           
           <ul class="project-features">
-            @for($i = 1; $i <= 5; $i++)
-              @if($commercialProject?->{'feature_'.$i})
+            @if(!empty($commercialProject?->features))
+              @foreach($commercialProject->features as $feature)
                 <li>
                   <span class="feature-icon">✓</span>
-                  <span>{{ $commercialProject->{'feature_'.$i} }}</span>
+                  <span>{{ $feature }}</span>
                 </li>
-              @endif
-            @endfor
+              @endforeach
+            @endif
           </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 
 <style>

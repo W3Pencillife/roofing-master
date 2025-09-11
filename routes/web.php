@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\HomeDiscoverController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\CommercialProjectController;
 
 
 
@@ -86,10 +87,19 @@ Route::prefix('admin')->group(function () {
 
         // Admin projects
         Route::prefix('projects')->name('admin.projects.')->group(function () {
-            Route::get('/', [ProjectController::class, 'index'])->name('index');
             Route::get('/residential', [ProjectController::class, 'residential'])->name('residential');
             Route::get('/commercial', [ProjectController::class, 'commercial'])->name('commercial');
         });
+        // Commercial Projects
+        Route::get('/projects/commercial', [CommercialProjectController::class, 'index'])
+            ->name('admin.projects.commercial');
+
+        Route::post('/projects/commercial/update', [CommercialProjectController::class, 'update'])
+            ->name('admin.projects.commercial.update');
+
+        // New route for updating project images
+        Route::post('/projects/commercial/update-image', [CommercialProjectController::class, 'updateImage'])
+            ->name('admin.projects.commercial.updateImage');
 
         Route::get('/features', [FeatureController::class, 'index'])->name('admin.features');
         Route::post('/features/header', [FeatureController::class, 'updateHeader'])->name('admin.features.header.update');
