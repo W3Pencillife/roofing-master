@@ -2,12 +2,16 @@
 <section class="partners-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Our <span style="color: #3498db;">Partners</span></h2>
+      <h2 class="section-title">
+          {{ $partnersSection->title ?? 'Our' }}
+          <span style="color: #3498db;">{{ $partnersSection->highlight_text ?? 'Partners' }}</span>
+      </h2>
       <div class="divider"></div>
-      <p class="section-description">
-        We work with valued partners to create lasting impact and bring better solutions to our community.
-      </p>
+        <p class="section-description">
+            {{ $partnersSection->description ?? 'We work with valued partners to create lasting impact.' }}
+        </p>
     </div>
+
     
     <div class="partners-container">
       <div class="partner-row">

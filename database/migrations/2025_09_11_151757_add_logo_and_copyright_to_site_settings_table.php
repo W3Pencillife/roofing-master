@@ -6,18 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-public function up(): void
-{
-    Schema::table('site_settings', function (Blueprint $table) {
-        $table->string('logo')->nullable()->after('id'); // only add logo
-    });
-}
+    public function up(): void
+    {
+        Schema::table('site_settings', function (Blueprint $table) {
+            if (!Schema::hasColumn('site_settings', 'logo')) {
+                $table->string('logo')->nullable()->after('id');
+            }
+        });
+    }
 
-public function down(): void
-{
-    Schema::table('site_settings', function (Blueprint $table) {
-        $table->dropColumn('logo');
-    });
-}
-
+    public function down(): void
+    {
+        Schema::table('site_settings', function (Blueprint $table) {
+            if (Schema::hasColumn('site_settings', 'logo')) {
+                $table->dropColumn('logo');
+            }
+        });
+    }
 };

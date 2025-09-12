@@ -20,6 +20,7 @@ use \App\Http\Controllers\Admin\SiteSettingController;
 
 
 
+
 // Public routes
 Route::get('/', function () {
     return view('welcome');
@@ -116,7 +117,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/partners', [AdminPartnerController::class, 'index'])->name('admin.partners');
         Route::post('/partners', [AdminPartnerController::class, 'store'])->name('admin.partners.store');
         Route::delete('/partners/{id}', [AdminPartnerController::class, 'destroy'])->name('admin.partners.destroy');
-        
+        Route::post('/partners/section/update', [AdminPartnerController::class, 'updateSection'])
+            ->name('admin.partners.section.update');
 
         // Site settings
         Route::get('/site-settings', [SiteSettingController::class, 'index'])->name('admin.site-settings');

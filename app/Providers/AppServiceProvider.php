@@ -9,6 +9,7 @@ use App\Models\ResidentialProject;
 use App\Models\SiteSetting;
 use App\Models\Post;
 use App\Models\HomeAbout;
+use App\Models\PartnersSectionSetting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,12 +54,20 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('*', function ($view) {
-    $allServices = Post::all();
+        $allServices = Post::all();
 
-    $roofingServices = $allServices->filter(fn($s) => str_contains(strtolower($s->category), 'roof'));
-    $commercialServices = $allServices->filter(fn($s) => !str_contains(strtolower($s->category), 'roof'));
+        $roofingServices = $allServices->filter(fn($s) => str_contains(strtolower($s->category), 'roof'));
+        $commercialServices = $allServices->filter(fn($s) => !str_contains(strtolower($s->category), 'roof'));
 
-    $view->with(compact('roofingServices','commercialServices'));
-});
+        $view->with(compact('roofingServices','commercialServices'));
+        });
+
+       
+
+        View::composer('*', function ($view) {
+            $partnersSection = PartnersSectionSetting::first();
+            $view->with('partnersSection', $partnersSection);
+        });
+
     }
 }

@@ -3,6 +3,37 @@
 @section('content')
 <div class="container-fluid">
 
+<!-- Section Header Management -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Section Header Management</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.partners.section.update') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="sectionTitle">Section Title</label>
+                            <input type="text" class="form-control" id="sectionTitle" name="title"
+                                value="{{ $partnersSection->title ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="highlightText">Highlighted Text</label>
+                            <input type="text" class="form-control" id="highlightText" name="highlight_text"
+                                value="{{ $partnersSection->highlight_text ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionDescription">Section Description</label>
+                            <textarea class="form-control" id="sectionDescription" name="description" rows="3">{{ $partnersSection->description ?? '' }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Header</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Section Settings Modal -->
 <div class="modal fade" id="sectionSettingsModal" tabindex="-1" aria-labelledby="sectionSettingsModalLabel" aria-hidden="true">
     <div class="modal-dialog">

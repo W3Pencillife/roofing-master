@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Partner;
+use App\Models\PartnersSectionSetting;
 
 class AdminPartnerController extends Controller
 {
     // Display all partners
     public function index()
     {
-        $partners = Partner::latest()->get(); // Fetch all partners
-        return view('admin.partners', compact('partners'));
+        $partners = Partner::latest()->get();
+        $partnersSection = PartnersSectionSetting::first(); // get section settings
+        return view('admin.partners', compact('partners', 'partnersSection'));
     }
+
 
     // Store new partner
     public function store(Request $request)
@@ -48,5 +51,27 @@ class AdminPartnerController extends Controller
 
         $partner->delete();
         return redirect()->back()->with('success', 'Partner deleted successfully.');
+    }
+
+    public function updateSection(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'highlight_text' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        // Always update the first row (id=1)
+        $section = PartnersSectionSetting::first();
+        if (!$section) {
+            $section = new PartnersSectionSetting();
+        }
+
+        $section->title = $request->title;
+        $section->highlight_text = $request->highlight_text;
+        $section->description = $request->description;
+        $section->save();
+
+        return redirect()->back()->with('success', 'Partners section updated successfully.');
     }
 }
