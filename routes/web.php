@@ -17,13 +17,21 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\CommercialProjectController;
 use \App\Http\Controllers\Admin\ResidentialProjectController;
 use \App\Http\Controllers\Admin\SiteSettingController;
-
+use App\Models\HomeAbout;
 
 
 
 // Public routes
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/about-us', function () {
+    $homeAbout = HomeAbout::first(); // or where(...) if needed
+    return view('layouts.about-us', compact('homeAbout'));
+});
+Route::get('/contact-us', function () {
+    return view('layouts.contact-us');
 });
 
 // Submit quote message
@@ -80,6 +88,8 @@ Route::prefix('admin')->group(function () {
         // Quote section + submissions
         Route::get('/form-submissions', [QuoteAdminController::class, 'index'])->name('admin.form-submissions');
         Route::post('/form-submissions/update', [QuoteAdminController::class, 'update'])->name('admin.form-submissions.update');
+        Route::delete('/form-submissions/{id}', [QuoteAdminController::class, 'destroy'])->name('admin.form-submissions.destroy');
+
 
         // Admin posts
         Route::prefix('posts')->name('admin.posts.')->group(function () {

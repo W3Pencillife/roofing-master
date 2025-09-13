@@ -58,4 +58,13 @@ public function send(Request $request)
 
         return back()->with('success', 'Quote content updated successfully!');
     }
+    public function destroy($id)
+    {
+        $submission = QuoteSubmission::findOrFail($id);
+        $submission->delete();
+
+        return redirect()->back()->with('success', 'Submission deleted successfully.');
+    }
+
+
 }

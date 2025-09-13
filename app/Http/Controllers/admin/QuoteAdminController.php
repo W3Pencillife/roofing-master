@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -11,25 +10,36 @@ use App\Models\QuoteSubmission;
 class QuoteAdminController extends Controller
 {
     public function index()
-{
-    $quote = QuoteForm::latest()->first();
-    $submissions = QuoteSubmission::latest()->paginate(10); // paginate, not all()
-    return view('admin.form-submissions', compact('quote', 'submissions'));
-}
+    {
+        $quote = QuoteForm::latest()->first();
+        $submissions = QuoteSubmission::latest()->paginate(10);
 
+        return view('admin.form-submissions', compact('quote', 'submissions'));
+    }
 
     public function update(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'subtitle' => 'required',
+        // Handle quote content update
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'benefit_1' => 'nullable|string|max:255',
+            'benefit_2' => 'nullable|string|max:255',
+            'benefit_3' => 'nullable|string|max:255',
         ]);
 
         $quote = QuoteForm::firstOrNew([]);
-        $quote->fill($request->only(['title','subtitle','benefit_1','benefit_2','benefit_3']));
+        $quote->fill($validated);
         $quote->save();
 
-        return back()->with('success', 'Quote section updated successfully!');
+        return back()->with('success', 'Quote content updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $submission = QuoteSubmission::findOrFail($id);
+        $submission->delete();
+
+        return redirect()->back()->with('success', 'Submission deleted successfully.');
     }
 }
-

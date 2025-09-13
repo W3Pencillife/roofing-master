@@ -61,29 +61,30 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @forelse($submissions ?? [] as $submission)
-                                        <tr>
-                                            <td>{{ $submission->name }}</td>
-                                            <td>{{ $submission->email }}</td>
-                                            <td>{{ $submission->phone ?? '-' }}</td>
-                                            <td>{{ $submission->subject ?? '-' }}</td>
-                                            <td>
-                                                @php
-                                                    $badgeClasses = [
-                                                        'new' => 'bg-warning text-dark',
-                                                        'contacted' => 'bg-success',
-                                                        'quoted' => 'bg-primary',
-                                                        'closed' => 'bg-secondary'
-                                                    ];
-                                                @endphp
-                                                <span class="badge {{ $badgeClasses[$submission->status] ?? 'bg-dark' }}">
-                                                    {{ ucfirst($submission->status) }}
-                                                </span>
-                                            </td>
-                                            <td>{{ $submission->created_at->diffForHumans() }}</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" data-bs-target="#submissionModal"
+                            <tbody>
+                                @forelse($submissions ?? [] as $submission)
+                                    <tr>
+                                        <td>{{ $submission->name }}</td>
+                                        <td>{{ $submission->email }}</td>
+                                        <td>{{ $submission->phone ?? '-' }}</td>
+                                        <td>{{ $submission->subject ?? '-' }}</td>
+                                        <td>
+                                            @php
+                                                $badgeClasses = [
+                                                    'new' => 'bg-warning text-dark',
+                                                    'contacted' => 'bg-success',
+                                                    'quoted' => 'bg-primary',
+                                                    'closed' => 'bg-secondary'
+                                                ];
+                                            @endphp
+                                            <span class="badge {{ $badgeClasses[$submission->status] ?? 'bg-dark' }}">
+                                                {{ ucfirst($submission->status) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $submission->created_at->diffForHumans() }}</td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <button class="btn btn-sm btn-outline-primary view-btn" data-bs-toggle="modal" data-bs-target="#submissionModal"
                                                     data-id="{{ $submission->id }}"
                                                     data-name="{{ $submission->name }}"
                                                     data-email="{{ $submission->email }}"
@@ -92,23 +93,24 @@
                                                     data-message="{{ $submission->message }}"
                                                     data-status="{{ $submission->status }}"
                                                     data-date="{{ $submission->created_at->format('d M Y, h:i A') }}">
-                                                    <i class="bi bi-eye"></i>
+                                                    View
                                                 </button>
-                                                <form action="{{ route('admin.form-submissions.update') }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.form-submissions.destroy', $submission->id) }}" method="POST" style="display:inline;">
                                                     @csrf
-                                                    <input type="hidden" name="delete_id" value="{{ $submission->id }}">
-                                                    <button type="submit" class="btn btn-sm btn-danger delete-btn">
-                                                        <i class="bi bi-trash"></i>
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger delete-btn">
+                                                        Delete
                                                     </button>
                                                 </form>
-                                            </td>
-                                        </tr>
-@empty
-    <tr>
-        <td colspan="7" class="text-center text-muted">No submissions found.</td>
-    </tr>
-@endforelse
-                                </tbody>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">No submissions found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                             </table>
                         </div>
 
