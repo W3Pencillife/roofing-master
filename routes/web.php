@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CommercialProjectController;
 use \App\Http\Controllers\Admin\ResidentialProjectController;
 use \App\Http\Controllers\Admin\SiteSettingController;
 use App\Models\HomeAbout;
+use App\Models\QuoteForm;
 
 
 
@@ -31,8 +32,10 @@ Route::get('/about-us', function () {
     return view('layouts.about-us', compact('homeAbout'));
 });
 Route::get('/contact-us', function () {
-    return view('layouts.contact-us');
+    $quoteForm = QuoteForm::first();
+    return view('layouts.contact-us', compact('quoteForm'));
 });
+
 
 // Submit quote message
 Route::post('/send-quote', [QuoteFormController::class, 'send'])->name('quote.send');
@@ -134,6 +137,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/site-settings', [SiteSettingController::class, 'index'])->name('admin.site-settings');
         Route::post('/site-settings/update', [SiteSettingController::class, 'update'])->name('admin.site-settings.update');
 
-
+        Route::get('/map', function () {
+        return view('admin.map');
+            })->name('admin.map');
     });
 });

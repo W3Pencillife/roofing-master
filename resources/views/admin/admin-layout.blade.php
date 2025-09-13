@@ -24,18 +24,21 @@
         }
         
         /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary-color), #1a2530);
-            color: white;
-            z-index: 1000;
-            transition: all 0.3s;
-            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
-        }
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* full viewport height */
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, var(--primary-color), #1a2530);
+    color: white;
+    z-index: 1000;
+    transition: all 0.3s;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* enables vertical scrolling */
+    padding-bottom: 20px; /* optional: adds spacing at the bottom */
+}
+
         
         .sidebar-brand {
             padding: 20px 15px;
@@ -278,6 +281,14 @@
                     <div>
                         <i class="fas fa-sliders-h"></i>
                         <span>Site Settings</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.map') }}" class="nav-link">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Map</span>
                     </div>
                 </a>
             </li>
