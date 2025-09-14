@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Roofing Site</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,6 +49,8 @@
                         <span>{{ $homeAbout?->feature_3 ?? 'Feature 3' }}</span>
                     </div>
                 </div>
+
+                <a href="/" class="cta-primary">Learn More <i class="bi bi-arrow-right ms-2"></i></a>
             </div>
         </div>
     </section>

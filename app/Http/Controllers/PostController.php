@@ -7,9 +7,13 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function showBySlug($slug)
+    public function showBySlug($category, $slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail(); // fetch single post by slug
+        $post = Post::where('category', $category)
+                    ->where('slug', $slug)
+                    ->firstOrFail();
+
         return view('layouts.services-page', compact('post'));
     }
+
 }

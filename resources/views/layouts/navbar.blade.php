@@ -35,17 +35,18 @@
 
                 <!-- Residential Services -->
                 <li class="px-3 pt-3">
-                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Roofing Services</h6>
+                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Residential Services</h6>
                 </li>
                 @php
                     $residentialServices = $residentialServices ?? collect();
                 @endphp
                 @forelse($residentialServices as $service)
                     <li>
-                        <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
-                          href="{{ route('services.category', $service->slug) }}">
-                          {{ $service->title }}
-                        </a>
+                      <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                        href="{{ route('services.category', ['category' => 'Residential Services', 'slug' => $service->slug]) }}">
+                        {{ $service->title }}
+                      </a>
+
                     </li>
                 @empty
                     <li class="dropdown-item text-muted">No residential Services Found</li>
@@ -62,10 +63,11 @@
                 @endphp
                 @forelse($commercialServices as $service)
                     <li>
-                        <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
-                          href="{{ route('services.category', $service->slug) }}">
-                          {{ $service->title }}
-                        </a>
+                      <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
+                        href="{{ route('services.category', ['category' => 'Commercial Services', 'slug' => $service->slug]) }}">
+                        {{ $service->title }}
+                      </a>
+
                     </li>
                 @empty
                     <li class="dropdown-item text-muted">No Commercial Services Found</li>

@@ -37,14 +37,14 @@ class AppServiceProvider extends ServiceProvider
         // Share site settings and service posts (for navbar) with all views
         View::composer('*', function ($view) {
             $siteSetting = SiteSetting::first(); // fetch first row
-            $roofingServices = Post::where('category', 'Roofing Services')->get();
+            $residentialServices = Post::where('category', 'Residential Services')->get();
             $commercialServices = Post::where('category', 'Commercial Services')->get();
 
             $siteLogo = $siteSetting && $siteSetting->logo
                 ? 'images/' . $siteSetting->logo
                 : 'images/default-logo.png'; // fallback if no logo
 
-            $view->with(compact('siteSetting', 'roofingServices', 'commercialServices', 'siteLogo'));
+            $view->with(compact('siteSetting', 'residentialServices', 'commercialServices', 'siteLogo'));
         });
 
         // Share HomeAbout data specifically for certain views
@@ -53,14 +53,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('homeAbout', $homeAbout);
         });
 
-        View::composer('*', function ($view) {
-        $allServices = Post::all();
+        // View::composer('*', function ($view) {
+        // $allServices = Post::all();
 
-        $roofingServices = $allServices->filter(fn($s) => str_contains(strtolower($s->category), 'roof'));
-        $commercialServices = $allServices->filter(fn($s) => !str_contains(strtolower($s->category), 'roof'));
+        // $residentialServices = $allServices->filter(fn($s) => str_contains(strtolower($s->category), 'roof'));
+        // $commercialServices = $allServices->filter(fn($s) => !str_contains(strtolower($s->category), 'roof'));
 
-        $view->with(compact('roofingServices','commercialServices'));
-        });
+        // $view->with(compact('residentialServices','commercialServices'));
+        // });
 
        
 

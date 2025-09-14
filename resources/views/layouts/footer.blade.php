@@ -15,14 +15,15 @@
             <h3 class="footer-heading">Services</h3>
             <ul class="footer-links">
                 @php
-                    $allServices = $roofingServices->merge($commercialServices);
+                    $allServices = $residentialServices->merge($commercialServices);
                 @endphp
 
                 @forelse($allServices as $service)
                     <li>
-                        <a href="{{ route('services.category', $service->slug) }}">
-                            {{ $service->title }}
-                        </a>
+<a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
+    {{ $service->title }}
+</a>
+
                     </li>
                 @empty
                     <li>No services found</li>

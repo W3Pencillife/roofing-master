@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique(); // required because query selects `slug`
+            $table->string('slug'); 
             $table->text('content');
             $table->string('category');
             $table->timestamps();
