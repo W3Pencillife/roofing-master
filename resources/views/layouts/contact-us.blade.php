@@ -380,9 +380,16 @@
         <div class="col-md-6">
             <div class="card p-3">
                 <div class="map-responsive">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901267210195!2d90.41402031544198!3d23.810331384587267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b02c7f678f%3A0xa1b2c7d32b06f8b0!2sDhaka!5e0!3m2!1sen!2sbd!4v1694600000000!5m2!1sen!2sbd"
-                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    
+                  <iframe
+                      src="{{ $map->map_embed_url ?? 'https://www.google.com/maps/embed?...' }}"
+                      width="100%" 
+                      height="{{ $map->map_height ?? 400 }}" 
+                      style="border:0;" allowfullscreen="" loading="lazy"
+                      id="mapPreview">
+                  </iframe>
+
+
                 </div>
             </div>
         </div>      
@@ -390,30 +397,31 @@
             <div class="col-lg-5 offset-lg-1">
                 <div class="map-info">
                     <h3>Our Location</h3>
-                    
-                    <div class="contact-info-item">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <div>
-                            <h5>Address</h5>
-                            <p>123 Roofing Street, Cityville, ST 12345</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <i class="bi bi-telephone-fill"></i>
-                        <div>
-                            <h5>Phone</h5>
-                            <p>(123) 456-7890</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <i class="bi bi-envelope-fill"></i>
-                        <div>
-                            <h5>Email</h5>
-                            <p>info@roofingcompany.com</p>
-                        </div>
-                    </div>
+
+                  <div class="contact-info-item">
+                      <i class="bi bi-geo-alt-fill"></i>
+                      <div>
+                          <h5>Address</h5>
+                          <p>{{ $map->address }}</p>
+                      </div>
+                  </div>
+
+                  <div class="contact-info-item">
+                      <i class="bi bi-telephone-fill"></i>
+                      <div>
+                          <h5>Phone</h5>
+                          <p>{{ $map->phone }}</p>
+                      </div>
+                  </div>
+
+                  <div class="contact-info-item">
+                      <i class="bi bi-envelope-fill"></i>
+                      <div>
+                          <h5>Email</h5>
+                          <p>{{ $map->email }}</p>
+                      </div>
+                  </div>
+
                     
                 </div>
             </div>

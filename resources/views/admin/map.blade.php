@@ -42,7 +42,7 @@
                     <h6 class="m-0 font-weight-bold text-white">Update Map Settings</h6>
                 </div>
                 <div class="card-body">
-                    <form id="mapSettingsForm">
+                    <form id="mapSettingsForm" method="POST" action="{{ route('admin.map.store') }}">
                         @csrf
                         
                         <div class="mb-4">
@@ -50,15 +50,15 @@
                             
                             <div class="form-group mb-3">
                                 <label class="form-label">Google Maps Embed URL</label>
-                                <input type="text" class="form-control" name="map_url" 
-                                    value="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.901267210195!2d90.41402031544198!3d23.810331384587267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b02c7f678f%3A0xa1b2c7d32b06f8b0!2sDhaka!5e0!3m2!1sen!2sbd!4v1694600000000!5m2!1sen!2sbd"
+                                <input type="text" class="form-control" name="map_embed_url" 
+                                    value="{{ old('map_embed_url', $map->map_embed_url ?? '') }}"
                                     placeholder="Paste Google Maps embed URL">
-                                <div class="form-text">Get this from Google Maps → Share → Embed a map</div>
                             </div>
                             
                             <div class="form-group mb-3">
                                 <label class="form-label">Map Height (pixels)</label>
-                                <input type="number" class="form-control" name="map_height" value="400" min="200" max="800">
+                                <input type="number" class="form-control" name="map_height" 
+                                    value="{{ old('map_height', $map->map_height ?? 400) }}" min="200" max="800">
                             </div>
                         </div>
                         
@@ -67,26 +67,25 @@
                             
                             <div class="form-group mb-3">
                                 <label class="form-label">Location Name</label>
-                                <input type="text" class="form-control" name="location_name" value="Main Office">
+                                <input type="text" class="form-control" name="location_name" 
+                                    value="{{ old('location_name', $map->location_name ?? 'Main Office') }}">
                             </div>
                             
                             <div class="form-group mb-3">
                                 <label class="form-label">Address</label>
-                                <textarea class="form-control" name="address" rows="2">123 Roofing Street, Cityville, ST 12345</textarea>
+                                <textarea class="form-control" name="address" rows="2">{{ old('address', $map->address ?? '') }}</textarea>
                             </div>
                             
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" name="phone" value="(123) 456-7890">
-                                    </div>
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" name="phone" 
+                                        value="{{ old('phone', $map->phone ?? '') }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" name="email" value="info@roofingcompany.com">
-                                    </div>
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" name="email" 
+                                        value="{{ old('email', $map->email ?? '') }}">
                                 </div>
                             </div>
                         </div>
@@ -95,11 +94,9 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-check-circle me-2"></i>Update Map Settings
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" id="testMapBtn">
-                                <i class="bi bi-eye me-2"></i>Test Map Preview
-                            </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

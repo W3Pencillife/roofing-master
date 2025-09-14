@@ -19,6 +19,9 @@ use \App\Http\Controllers\Admin\ResidentialProjectController;
 use \App\Http\Controllers\Admin\SiteSettingController;
 use App\Models\HomeAbout;
 use App\Models\QuoteForm;
+use App\Models\MapSetting;
+use App\Models\Post;
+use App\Http\Controllers\MapController;
 
 
 
@@ -33,8 +36,12 @@ Route::get('/about-us', function () {
 });
 Route::get('/contact-us', function () {
     $quoteForm = QuoteForm::first();
-    return view('layouts.contact-us', compact('quoteForm'));
+    $map = MapSetting::first();   
+    return view('layouts.contact-us', compact('quoteForm', 'map'));
 });
+
+Route::get('/admin/map-settings', [MapController::class, 'index'])->name('map.index');
+Route::post('/admin/map-settings', [MapController::class, 'store'])->name('map.store');
 
 
 // Submit quote message
@@ -48,9 +55,9 @@ Route::get('/partners', [PartnerController::class, 'index']);
 Route::get('/services/{slug}', [PostController::class, 'showBySlug'])->name('services.category');
 
 Route::get('/test-services', function() {
-    $roofingServices = \App\Models\Post::where('category', 'Roofing Services')->get();
-    $commercialServices = \App\Models\Post::where('category', 'Commercial Services')->get();
-    dd($roofingServices, $commercialServices);
+    $residentialServices = Post::where('category', 'Residential Services')->get();
+    $commercialServices = Post::where('category', 'Commercial Services')->get();
+    dd($residentialServices, $commercialServices);
 });
 
 // Admin Authentication
@@ -137,8 +144,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/site-settings', [SiteSettingController::class, 'index'])->name('admin.site-settings');
         Route::post('/site-settings/update', [SiteSettingController::class, 'update'])->name('admin.site-settings.update');
 
-        Route::get('/map', function () {
-        return view('admin.map');
-            })->name('admin.map');
+        Route::get('/map', [MapController::class, 'index'])->name('admin.map');
+        Route::post('/map', [MapController::class, 'store'])->name('admin.map.store');
     });
 });

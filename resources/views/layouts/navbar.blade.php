@@ -33,14 +33,14 @@
             <ul class="dropdown-menu dropdown-menu-end p-0"
                 style="min-width: 280px; background-color: white; border: none; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
 
-                <!-- Roofing Services -->
+                <!-- Residential Services -->
                 <li class="px-3 pt-3">
                     <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Roofing Services</h6>
                 </li>
                 @php
-                    $roofingServices = $roofingServices ?? collect();
+                    $residentialServices = $residentialServices ?? collect();
                 @endphp
-                @forelse($roofingServices as $service)
+                @forelse($residentialServices as $service)
                     <li>
                         <a class="dropdown-item py-2 px-3 text-dark d-flex align-items-center"
                           href="{{ route('services.category', $service->slug) }}">
@@ -48,7 +48,7 @@
                         </a>
                     </li>
                 @empty
-                    <li class="dropdown-item text-muted">No Roofing Services Found</li>
+                    <li class="dropdown-item text-muted">No residential Services Found</li>
                 @endforelse
 
                 <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
