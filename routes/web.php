@@ -54,7 +54,6 @@ Route::get('/partners', [PartnerController::class, 'index']);
 //Route::get('/services/{slug}', [PostController::class, 'showByCategory'])->name('services.category');
 Route::get('/services/{category}/{slug}', [PostController::class, 'showBySlug'])->name('services.category');
 
-
 Route::get('/test-services', function() {
     $residentialServices = Post::where('category', 'Residential Services')->get();
     $commercialServices = Post::where('category', 'Commercial Services')->get();
