@@ -22,6 +22,7 @@ use App\Models\QuoteForm;
 use App\Models\MapSetting;
 use App\Models\Post;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\Admin\AdminPostController;
 
 
 
@@ -103,9 +104,10 @@ Route::prefix('admin')->group(function () {
 
         // Admin posts
         Route::prefix('posts')->name('admin.posts.')->group(function () {
-            Route::get('/', [PostController::class, 'index'])->name('index');
-            Route::get('/create', [PostController::class, 'create'])->name('create');
-            Route::get('/categories', [PostController::class, 'categories'])->name('categories');
+            Route::get('/', [AdminPostController::class, 'index'])->name('index');
+            Route::get('/create', [AdminPostController::class, 'create'])->name('create');
+            Route::get('/categories', [AdminPostController::class, 'categories'])->name('categories');
+            Route::post('/store', [AdminPostController::class, 'store'])->name('store');
         });
 
         // Admin projects

@@ -276,19 +276,19 @@
                     </div>
                 </a>
             </li>
+                        <li>
+                <a href="{{ route('admin.map') }}" class="nav-link">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Map</span>
+                    </div>
+                </a>
+            </li>
             <li>
                 <a href="{{ route('admin.site-settings') }}" class="nav-link">
                     <div>
                         <i class="fas fa-sliders-h"></i>
                         <span>Site Settings</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.map') }}" class="nav-link">
-                    <div>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Map</span>
                     </div>
                 </a>
             </li>
