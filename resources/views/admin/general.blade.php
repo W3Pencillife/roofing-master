@@ -41,11 +41,11 @@
                                             <label for="heroText" class="form-label">Hero Text</label>
                                             <textarea class="form-control" name="hero_text" id="heroText" rows="3">{{ $setting->hero_text ?? 'Expert roofing solutions for residential and commercial properties' }}</textarea>
                                         </div>
-                                        <div class="form-group mt-3">
+                                        <!-- <div class="form-group mt-3">
                                             <label for="heroButtonText" class="form-label">Button Text</label>
                                             <input type="text" class="form-control" name="hero_button_text" id="heroButtonText"
                                                 value="{{ $setting->hero_button_text ?? 'Free Quote' }}">
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">

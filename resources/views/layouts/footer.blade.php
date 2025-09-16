@@ -35,8 +35,8 @@
         <div class="footer-column">
           <h3 class="footer-heading">Support</h3>
           <ul class="footer-links">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact-us">Contact</a></li>
           </ul>
         </div>
         

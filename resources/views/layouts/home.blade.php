@@ -10,7 +10,7 @@
   <div class="content text-white">
     <h1 class="fw-bold display-4">{{ $heroTitle }}</h1>
     <p class="lead">{{ $heroText }}</p>
-    <a href="#" class="cta-primary">Get Started</a>
+    <a href="/contact-us" class="cta-primary">Get Started</a>
   </div>
 </div>
 

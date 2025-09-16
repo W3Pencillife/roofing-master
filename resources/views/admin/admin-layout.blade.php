@@ -226,10 +226,6 @@
                         <i class="fas fa-plus"></i>
                         Add New
                     </a>
-                    <a href="{{ route('admin.posts.categories') }}"  class="submenu-link">
-                        <i class="fas fa-tags"></i>
-                        Categories
-                    </a>
                 </div>
             </li>
             <li>

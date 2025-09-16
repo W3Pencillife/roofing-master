@@ -81,7 +81,7 @@
 
         <!-- Get Started Button -->
         <li class="nav-item ms-3">
-          <a class="btn btn-primary fw-semibold text-white px-4 py-2" href="#"
+          <a class="btn btn-primary fw-semibold text-white px-4 py-2" href="/contact-us"
              style="border-radius: 50px; background: linear-gradient(90deg, #3498db, #2c81ba); 
                     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); transition: all 0.3s ease;">
             Get Started <i class="bi bi-arrow-right ms-2"></i>
