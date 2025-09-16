@@ -9,6 +9,10 @@
         </a>
     </div>
 
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -21,55 +25,32 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Category</th>
-                        <th>Content</th>
+                        <th>Created At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Getting Started with Web Development</td>
-                        <td>Tutorial</td>
-                        <td>2023-10-15</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Advanced Laravel Techniques</td>
-                        <td>Tutorial</td>
-                        <td>Admin User</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Company News: Q3 Results</td>
-                        <td>News</td>
-                        <td>Admin User</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
+                    @foreach($posts as $post)
+                        <tr>
+                            <td>{{ $post->id }}</td>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->category }}</td>
+                            <td>{{ $post->created_at->format('Y-m-d') }}</td>
+                            <td>
+                                <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+
+                                <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this post?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<style>
-    .card-header {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e3e6f0;
-    }
-    .btn-sm {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-    }
-</style>
 @endsection

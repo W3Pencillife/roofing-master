@@ -5,29 +5,69 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class AdminPostController extends Controller
 {
+    // Show all posts
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->get();
         return view('admin.posts.index', compact('posts'));
     }
 
+    // Show create form
     public function create()
     {
         return view('admin.posts.create');
     }
 
-    public function categories()
-    {
-        $categories = Post::select('category')->distinct()->get();
-        return view('admin.posts.categories', compact('categories'));
-    }
-
+    // Store post
     public function store(Request $request)
     {
-        Post::create($request->all());
-        return redirect()->route('admin.posts.index');
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'category'    => 'required|string',
+            'content'     => 'required|string',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $slug = Str::slug($request->title);
+
+        $data = $request->only([
+            'title','content','category',
+            'subtitle1','subcontent1',
+            'subtitle2','subtitle3','subcontent2'
+        ]);
+
+        $data['slug'] = $slug;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('posts', 'public');
+            $data['image'] = $path;
+        }
+
+        Post::create($data);
+
+        return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
+    }
+
+    // Show single post in admin (view eye icon)
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('admin.posts.show', compact('post'));
+    }
+
+    // Delete post
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->image && file_exists(public_path('storage/' . $post->image))) {
+            unlink(public_path('storage/' . $post->image));
+        }
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
 }

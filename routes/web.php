@@ -101,14 +101,17 @@ Route::prefix('admin')->group(function () {
         Route::post('/form-submissions/update', [QuoteAdminController::class, 'update'])->name('admin.form-submissions.update');
         Route::delete('/form-submissions/{id}', [QuoteAdminController::class, 'destroy'])->name('admin.form-submissions.destroy');
 
-
         // Admin posts
         Route::prefix('posts')->name('admin.posts.')->group(function () {
             Route::get('/', [AdminPostController::class, 'index'])->name('index');
             Route::get('/create', [AdminPostController::class, 'create'])->name('create');
-            Route::get('/categories', [AdminPostController::class, 'categories'])->name('categories');
             Route::post('/store', [AdminPostController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdminPostController::class, 'show'])->name('show');
+            Route::delete('/{id}', [AdminPostController::class, 'destroy'])->name('destroy');
+            Route::get('/categories', [AdminPostController::class, 'categories'])->name('categories');
+
         });
+
 
         // Admin projects
         Route::prefix('projects')->name('admin.projects.')->group(function () {

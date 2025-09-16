@@ -15,88 +15,60 @@
             Create New Post
         </div>
         <div class="card-body">
-            <form>
+            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <!-- Post Title -->
                 <div class="mb-3">
                     <label for="postTitle" class="form-label">Post Title</label>
-                    <input type="text" class="form-control" id="postTitle" placeholder="Enter post title">
+                    <input type="text" class="form-control" name="title" id="postTitle" required>
                 </div>
 
+                <!-- Category -->
                 <div class="mb-3">
-                    <label for="existingTitle" class="form-label">Or Select Existing Title</label>
-                    <select class="form-select" id="existingTitle">
-                        <option selected>Select an existing title</option>
-                        <option value="1">Getting Started with Web Development</option>
-                        <option value="2">Advanced Laravel Techniques</option>
-                        <option value="3">Company News: Q3 Results</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="category" id="categoryTutorial" value="tutorial" checked>
-                        <label class="form-check-label" for="categoryTutorial">
-                            Tutorial
-                        </label>
+                    <label class="form-label">Category</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="category" value="Residential Services" checked>
+                        <label class="form-check-label">Residential Services</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="category" id="categoryNews" value="news">
-                        <label class="form-check-label" for="categoryNews">
-                            News
-                        </label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="category" value="Commercial Services">
+                        <label class="form-check-label">Commercial Services</label>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="subtitle1" class="form-label">Subtitle 1</label>
-                    <input type="text" class="form-control" id="subtitle1" placeholder="Enter subtitle 1">
-                </div>
+                <!-- Dynamic subtitles & subcontents -->
+                @php
+                    $sections = ['subtitle1','subcontent1','subtitle2','subtitle3','subcontent2'];
+                @endphp
 
-                <div class="mb-3">
-                    <label for="subcontent1" class="form-label">Subcontent 1</label>
-                    <textarea class="form-control" id="subcontent1" rows="3" placeholder="Enter subcontent 1"></textarea>
-                </div>
+                @foreach($sections as $section)
+                    <div class="mb-3">
+                        <label class="form-label">{{ ucwords(str_replace(['subtitle','subcontent'], ['Subtitle ','Subcontent '], $section)) }}</label>
+                        @if(str_contains($section, 'subcontent'))
+                            <textarea class="form-control" name="{{ $section }}" rows="3"></textarea>
+                        @else
+                            <input type="text" class="form-control" name="{{ $section }}">
+                        @endif
+                    </div>
+                @endforeach
 
+                <!-- Main Content -->
                 <div class="mb-3">
                     <label for="mainContent" class="form-label">Main Content</label>
-                    <textarea class="form-control" id="mainContent" rows="5" placeholder="Enter main content"></textarea>
+                    <textarea class="form-control" name="content" id="mainContent" rows="5" required></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="subtitle2" class="form-label">Subtitle 2</label>
-                    <input type="text" class="form-control" id="subtitle2" placeholder="Enter subtitle 2">
-                </div>
-
-                <div class="mb-3">
-                    <label for="subtitle3" class="form-label">Subtitle 3</label>
-                    <input type="text" class="form-control" id="subtitle3" placeholder="Enter subtitle 3">
-                </div>
-
-                <div class="mb-3">
-                    <label for="subcontent2" class="form-label">Subcontent 2</label>
-                    <textarea class="form-control" id="subcontent2" rows="3" placeholder="Enter subcontent 2"></textarea>
-                </div>
-
+                <!-- Featured Image -->
                 <div class="mb-3">
                     <label for="postImage" class="form-label">Featured Image</label>
-                    <input class="form-control" type="file" id="postImage">
+                    <input class="form-control" type="file" name="image" id="postImage">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Publish Post</button>
-                <button type="button" class="btn btn-secondary">Save Draft</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
             </form>
         </div>
     </div>
 </div>
-
-<style>
-    .breadcrumb {
-        background-color: #f8f9fa;
-        border-radius: 0.35rem;
-        padding: 0.75rem 1rem;
-    }
-    .form-check {
-        margin-bottom: 0.5rem;
-    }
-</style>
 @endsection
