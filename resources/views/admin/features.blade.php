@@ -53,29 +53,29 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-<tbody>
-    @forelse($features as $index => $feature)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td><i class="bi {{ $feature->icon }} feature-icon-display"></i></td>
-            <td>{{ $feature->heading }}</td>
-            <td>{{ $feature->description }}</td>
-            <td>
-                <form action="{{ route('admin.features.destroy', $feature->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-sm btn-outline-danger action-btn">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="5" class="text-center">No features added yet.</td>
-        </tr>
-    @endforelse
-</tbody>
+                    <tbody>
+                        @forelse($features as $index => $feature)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td><i class="bi {{ $feature->icon }} feature-icon-display"></i></td>
+                                <td>{{ $feature->heading }}</td>
+                                <td>{{ $feature->description }}</td>
+                                <td>
+                                    <form action="{{ route('admin.features.destroy', $feature->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger action-btn">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">No features added yet.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
 
                 </table>
             </div>
@@ -92,41 +92,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-<form action="{{ route('admin.features.store') }}" method="POST">
-    @csrf
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="featureTitle" class="form-label">Feature Title</label>
-                <input type="text" class="form-control" name="featureTitle" required>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="featureIcon" class="form-label">Icon</label>
-                <select class="form-select" name="featureIcon" required>
-                    <option value="bi-award">Award (bi-award)</option>
-                    <option value="bi-cash-stack">Cash Stack (bi-cash-stack)</option>
-                    <option value="bi-graph-up">Graph Up (bi-graph-up)</option>
-                    <option value="bi-shield-check">Shield Check (bi-shield-check)</option>
-                    <option value="bi-chat-dots">Chat Dots (bi-chat-dots)</option>
-                    <option value="bi-building-gear">Building Gear (bi-building-gear)</option>
-                    <option value="bi-tools">Tools (bi-tools)</option>
-                    <option value="bi-clock-history">Clock History (bi-clock-history)</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="mb-3">
-        <label for="featureDescription" class="form-label">Description</label>
-        <textarea class="form-control" name="featureDescription" rows="3" required></textarea>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Add Feature</button>
-    </div>
-</form>
-
+                <form action="{{ route('admin.features.store') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="featureTitle" class="form-label">Feature Title</label>
+                                <input type="text" class="form-control" name="featureTitle" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="featureIcon" class="form-label">Icon</label>
+                                <select class="form-select" name="featureIcon" required>
+                                    <option value="bi-award">Award (bi-award)</option>
+                                    <option value="bi-cash-stack">Cash Stack (bi-cash-stack)</option>
+                                    <option value="bi-graph-up">Graph Up (bi-graph-up)</option>
+                                    <option value="bi-shield-check">Shield Check (bi-shield-check)</option>
+                                    <option value="bi-chat-dots">Chat Dots (bi-chat-dots)</option>
+                                    <option value="bi-building-gear">Building Gear (bi-building-gear)</option>
+                                    <option value="bi-tools">Tools (bi-tools)</option>
+                                    <option value="bi-clock-history">Clock History (bi-clock-history)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="featureDescription" class="form-label">Description</label>
+                        <textarea class="form-control" name="featureDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Feature</button>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

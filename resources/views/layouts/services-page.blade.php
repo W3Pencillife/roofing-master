@@ -85,7 +85,7 @@
         </div>
     </section>
 
-    <!-- About Section with Slide Animations -->
+     <!-- About Section with Slide Animations -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="row align-items-center">

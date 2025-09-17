@@ -97,28 +97,28 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-<tbody>
-@foreach($partners as $index => $partner)
-<tr>
-    <td>{{ $index + 1 }}</td>
-    <td>
-        <img src="{{ asset('uploads/partners/'.$partner->image) }}" class="partner-logo" alt="{{ $partner->name }}">
-    </td>
-    <td>{{ $partner->name }}</td>
-    <td>{{ $partner->link ?? 'N/A' }}</td>
-    <td>
-        <!-- Edit functionality can be added later -->
-        <form action="{{ route('admin.partners.destroy', $partner->id) }}" method="POST" class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-outline-danger action-btn">
-                <i class="fas fa-trash"></i>
-            </button>
-        </form>
-    </td>
-</tr>
-@endforeach
-</tbody>
+                    <tbody>
+                        @foreach($partners as $index => $partner)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>
+                                <img src="{{ asset('uploads/partners/'.$partner->image) }}" class="partner-logo" alt="{{ $partner->name }}">
+                            </td>
+                            <td>{{ $partner->name }}</td>
+                            <td>{{ $partner->link ?? 'N/A' }}</td>
+                            <td>
+                                <!-- Edit functionality can be added later -->
+                                <form action="{{ route('admin.partners.destroy', $partner->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger action-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
 
                 </table>
             </div>
@@ -135,26 +135,26 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-<form action="{{ route('admin.partners.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="mb-3">
-        <label for="partnerName" class="form-label">Partner Name</label>
-        <input type="text" class="form-control" name="name" id="partnerName" required>
-    </div>
-    <div class="mb-3">
-        <label for="websiteUrl" class="form-label">Website URL</label>
-        <input type="url" class="form-control" name="link" id="websiteUrl">
-    </div>
-    <div class="mb-3">
-        <label for="logoUpload" class="form-label">Partner Logo</label>
-        <input type="file" class="form-control" name="image" id="logoUpload" accept="image/*" required>
-        <div class="form-text">Recommended size: 200x100 pixels. Max file size: 2MB</div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Add Partner</button>
-    </div>
-</form>
+                <form action="{{ route('admin.partners.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="partnerName" class="form-label">Partner Name</label>
+                        <input type="text" class="form-control" name="name" id="partnerName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="websiteUrl" class="form-label">Website URL</label>
+                        <input type="url" class="form-control" name="link" id="websiteUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="logoUpload" class="form-label">Partner Logo</label>
+                        <input type="file" class="form-control" name="image" id="logoUpload" accept="image/*" required>
+                        <div class="form-text">Recommended size: 200x100 pixels. Max file size: 2MB</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Partner</button>
+                    </div>
+                </form>
 
             </div>
             <div class="modal-footer">

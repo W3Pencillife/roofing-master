@@ -20,9 +20,9 @@
 
                 @forelse($allServices as $service)
                     <li>
-<a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
-    {{ $service->title }}
-</a>
+                      <a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
+                          {{ $service->title }}
+                      </a>
 
                     </li>
                 @empty
