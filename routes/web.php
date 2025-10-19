@@ -102,14 +102,20 @@ Route::prefix('admin')->group(function () {
         Route::delete('/form-submissions/{id}', [QuoteAdminController::class, 'destroy'])->name('admin.form-submissions.destroy');
 
         // Admin posts
+        // Admin posts
         Route::prefix('posts')->name('admin.posts.')->group(function () {
             Route::get('/', [AdminPostController::class, 'index'])->name('index');
             Route::get('/create', [AdminPostController::class, 'create'])->name('create');
             Route::post('/store', [AdminPostController::class, 'store'])->name('store');
+
+            // ✅ New routes added
+            Route::get('/{id}/edit', [AdminPostController::class, 'edit'])->name('edit');
+            Route::put('/{id}/update', [AdminPostController::class, 'update'])->name('update');
+
             Route::get('/{id}', [AdminPostController::class, 'show'])->name('show');
             Route::delete('/{id}', [AdminPostController::class, 'destroy'])->name('destroy');
-            Route::get('/categories', [AdminPostController::class, 'categories'])->name('categories');
 
+            Route::get('/categories', [AdminPostController::class, 'categories'])->name('categories');
         });
 
 

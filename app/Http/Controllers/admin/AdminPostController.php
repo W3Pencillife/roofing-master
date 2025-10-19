@@ -46,7 +46,7 @@ class AdminPostController extends Controller
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
-            $data['image'] = $imageName; // store filename only
+            $data['image'] = $imageName;
         }
 
         Post::create($data);
@@ -54,11 +54,57 @@ class AdminPostController extends Controller
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
 
-    // Show single post in admin
+    // Show single post
     public function show($id)
     {
         $post = Post::findOrFail($id);
         return view('admin.posts.show', compact('post'));
+    }
+
+    // Show edit form
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('post'));
+    }
+
+    // Update post
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+
+        $request->validate([
+            'title'    => 'required|string|max:255',
+            'category' => 'required|string',
+            'content'  => 'required|string',
+            'image'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $slug = Str::slug($request->title);
+
+        $data = $request->only([
+            'title', 'content', 'category',
+            'subtitle1', 'subcontent1',
+            'subtitle2', 'subtitle3', 'subcontent2'
+        ]);
+
+        $data['slug'] = $slug;
+
+        // Handle image update
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($post->image && file_exists(public_path('images/' . $post->image))) {
+                unlink(public_path('images/' . $post->image));
+            }
+
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        $post->update($data);
+
+        return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }
 
     // Delete post
@@ -66,7 +112,6 @@ class AdminPostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        // Delete image
         if ($post->image && file_exists(public_path('images/' . $post->image))) {
             unlink(public_path('images/' . $post->image));
         }

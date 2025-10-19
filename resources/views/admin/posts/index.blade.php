@@ -37,7 +37,13 @@
                             <td>{{ $post->category }}</td>
                             <td>{{ $post->created_at->format('Y-m-d') }}</td>
                             <td>
-                                <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-info">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
                                 <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                                     @csrf @method('DELETE')
