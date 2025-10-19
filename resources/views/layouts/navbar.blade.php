@@ -30,12 +30,18 @@
                 <span class="position-absolute bottom-0 start-0 w-100 bg-info"
                       style="height: 2px; transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;"></span>
             </a>
+
+            <!-- Scrollable Dropdown Menu -->
             <ul class="dropdown-menu dropdown-menu-end p-0"
-                style="min-width: 280px; background-color: white; border: none; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;">
+                style="min-width: 280px; max-height: 400px; overflow-y: auto; overflow-x: hidden; background-color: white; 
+                       border: none; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
 
                 <!-- Residential Services -->
                 <li class="px-3 pt-3">
-                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Residential Services</h6>
+                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
+                        style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
+                        Residential Services
+                    </h6>
                 </li>
                 @php
                     $residentialServices = $residentialServices ?? collect();
@@ -46,17 +52,19 @@
                         href="{{ route('services.category', ['category' => 'Residential Services', 'slug' => $service->slug]) }}">
                         {{ $service->title }}
                       </a>
-
                     </li>
                 @empty
-                    <li class="dropdown-item text-muted">No residential Services Found</li>
+                    <li class="dropdown-item text-muted">No Residential Services Found</li>
                 @endforelse
 
                 <li><hr class="dropdown-divider m-0" style="border-color: #f1f1f1;"></li>
 
                 <!-- Commercial Services -->
                 <li class="px-3 pt-3">
-                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">Commercial Services</h6>
+                    <h6 class="dropdown-header fw-bold mb-1 text-uppercase"
+                        style="font-size: 0.75rem; letter-spacing: 1px; color: #3498db;">
+                        Commercial Services
+                    </h6>
                 </li>
                 @php
                     $commercialServices = $commercialServices ?? collect();
@@ -67,7 +75,6 @@
                         href="{{ route('services.category', ['category' => 'Commercial Services', 'slug' => $service->slug]) }}">
                         {{ $service->title }}
                       </a>
-
                     </li>
                 @empty
                     <li class="dropdown-item text-muted">No Commercial Services Found</li>
@@ -94,6 +101,32 @@
 </nav>
 <!-- ==================== Navbar Section End ==================== -->
 
-
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- Custom Scrollbar Style -->
+<style>
+/* Scrollbar style for dropdown menu (vertical on right) */
+.dropdown-menu {
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #f1f1f1;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background-color: #2c81ba;
+}
+</style>

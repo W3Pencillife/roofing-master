@@ -102,7 +102,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/form-submissions/{id}', [QuoteAdminController::class, 'destroy'])->name('admin.form-submissions.destroy');
 
         // Admin posts
-        // Admin posts
         Route::prefix('posts')->name('admin.posts.')->group(function () {
             Route::get('/', [AdminPostController::class, 'index'])->name('index');
             Route::get('/create', [AdminPostController::class, 'create'])->name('create');

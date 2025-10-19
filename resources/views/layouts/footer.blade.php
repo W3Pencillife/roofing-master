@@ -12,25 +12,37 @@
       <div class="footer-nav">
         <!-- Services Column -->
         <div class="footer-column">
-            <h3 class="footer-heading">Services</h3>
-            <ul class="footer-links">
-                @php
-                    $allServices = $residentialServices->merge($commercialServices);
-                @endphp
+          <h3 class="footer-heading">Services</h3>
 
-                @forelse($allServices as $service)
-                    <li>
-                      <a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
-                          {{ $service->title }}
-                      </a>
+          <!-- Residential Services -->
+          <h4 class="footer-subheading">Residential Services</h4>
+          <ul class="footer-links">
+            @forelse($residentialServices as $service)
+              <li>
+                <a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
+                  {{ $service->title }}
+                </a>
+              </li>
+            @empty
+              <li>No residential services found</li>
+            @endforelse
+          </ul>
 
-                    </li>
-                @empty
-                    <li>No services found</li>
-                @endforelse
-            </ul>
+          <!-- Commercial Services -->
+          <h4 class="footer-subheading">Commercial Services</h4>
+          <ul class="footer-links">
+            @forelse($commercialServices as $service)
+              <li>
+                <a href="{{ route('services.category', ['category' => $service->category, 'slug' => $service->slug]) }}">
+                  {{ $service->title }}
+                </a>
+              </li>
+            @empty
+              <li>No commercial services found</li>
+            @endforelse
+          </ul>
         </div>
-     
+
         <!-- Support Column -->
         <div class="footer-column">
           <h3 class="footer-heading">Support</h3>
@@ -39,7 +51,7 @@
             <li><a href="/contact-us">Contact</a></li>
           </ul>
         </div>
-        
+
         <!-- Connect Column -->
         <div class="footer-column">
           <h3 class="footer-heading">Connect Us</h3>
@@ -70,7 +82,6 @@
     </div>
   </div>
 </footer>
-
 
 <style>
 /* Footer Base */
@@ -123,7 +134,7 @@
   min-width: 150px;
 }
 
-/* Services and Support Columns (matched to your reference) */
+/* Headings */
 .footer-heading {
   color: #3498db;
   font-size: 1.2rem;
@@ -144,6 +155,17 @@
   background: #3498db;
 }
 
+.footer-subheading {
+  color: #f1f1f1;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  border-left: 3px solid #3498db;
+  padding-left: 10px;
+}
+
+/* Links */
 .footer-links {
   list-style: none;
   padding: 0;
@@ -242,6 +264,13 @@
   .footer-heading::after {
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .footer-subheading {
+    border-left: none;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+    padding: 0 0 4px 0;
   }
   
   .social-links {
