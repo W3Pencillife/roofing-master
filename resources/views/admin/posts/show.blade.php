@@ -29,7 +29,7 @@
             @if($post->image)
                 <div class="mb-3">
                     <strong>Featured Image:</strong><br>
-                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="img-fluid" style="max-height: 300px;">
+                    <img src="{{ asset($post->image) }}" alt="Post Image" class="img-fluid" style="max-height: 300px;">
                 </div>
             @endif
 

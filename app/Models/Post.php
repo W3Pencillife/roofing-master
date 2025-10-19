@@ -9,7 +9,6 @@ class Post extends Model
 {
     use HasFactory;
 
-    // Add all dynamic fields here
     protected $fillable = [
         'title',
         'category',
